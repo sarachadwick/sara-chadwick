@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>404 - Page Not Found</title>
+    <meta name="description" content="Oops! This page doesn't exist" />
+    <meta name="theme-color" content="#ffb8ad" />
+
+    <!-- Use same favicon as main site -->
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="http://sara-chadwick.com/chicagosugarhigh/wp-content/uploads/2024/05/cropped-donut-favi.png"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background-color: #ffb8ad;
+        color: #fbf2c0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Oxygen, Ubuntu, Cantarell, sans-serif;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+      }
+
+      .error-card {
+        background-color: #43281c;
+        color: #fbf2c0;
+        border-radius: 5px;
+        padding: 40px;
+        box-shadow: 10px 10px 0 0 #f96f5d;
+        text-align: center;
+        max-width: 400px;
+        animation: float 3s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      h1 {
+        color: #ffb8ad;
+        font-size: 4rem;
+        margin-bottom: 20px;
+      }
+
+      p {
+        line-height: 1.6;
+        margin-bottom: 25px;
+        font-size: 1.1rem;
+      }
+
+      a {
+        color: #ffb8ad;
+        text-decoration: none;
+        font-weight: 500;
+        padding: 10px 20px;
+        border-radius: 3px;
+        display: inline-block;
+        transition: all 0.2s ease;
+      }
+
+      a:hover {
+        background-color: #f96f5d;
+        color: #43281c;
+        border-style: solid;
+      }
+
+      a:focus {
+        outline: 2px dashed #fbf2c0;
+        outline-offset: 3px;
+      }
+
+      @media (max-width: 480px) {
+        h1 {
+          font-size: 3rem;
+        }
+
+        .error-card {
+          padding: 30px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="error-card">
+      <h1>404</h1>
+      <p>
+        wow i didn't think anyone would find this. hi! there's no page here,
+        sorry
+      </p>
+      <a href="/">back to home</a>
+    </div>
+  </body>
+</html>

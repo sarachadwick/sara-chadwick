@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>studio - sara chadwick</title>
+
+    <!-- Meta tags for SEO and sharing -->
+    <meta name="description" content="studio by sara chadwick" />
+    <meta name="theme-color" content="#ffb8ad" />
+
+    <!-- Open Graph tags for social media sharing -->
+    <meta property="og:title" content="studio - sara chadwick" />
+    <meta property="og:description" content="studio by sara chadwick" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://sara-chadwick.com/studio.html" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/donut-favi.png" />
+
+    <!-- Studio data -->
+    <script src="/studio-data.js"></script>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background: linear-gradient(
+          135deg,
+          #ffb8ad 0%,
+          #f96f5d 25%,
+          #ffe4b5 50%,
+          #ffb8ad 75%,
+          #f96f5d 100%
+        );
+        background-size: 400% 400%;
+        animation: gradient-shift 15s ease infinite;
+        color: #fbf2c0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Oxygen, Ubuntu, Cantarell, sans-serif;
+        min-height: 100vh;
+        padding: 20px;
+        position: relative;
+        overflow-x: hidden;
+      }
+
+      @keyframes gradient-shift {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      /* Floating gradient orbs */
+      .gradient-orb {
+        position: fixed;
+        border-radius: 50%;
+        filter: blur(80px);
+        opacity: 0.6;
+        pointer-events: none;
+        z-index: 0;
+        animation: float 20s ease-in-out infinite;
+        will-change: transform;
+      }
+
+      .gradient-orb-1 {
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(
+          circle,
+          rgba(255, 184, 173, 0.8) 0%,
+          rgba(249, 111, 93, 0.6) 100%
+        );
+        top: 10%;
+        left: 10%;
+        animation-delay: 0s;
+      }
+
+      .gradient-orb-2 {
+        width: 350px;
+        height: 350px;
+        background: radial-gradient(
+          circle,
+          rgba(255, 228, 181, 0.8) 0%,
+          rgba(255, 184, 173, 0.6) 100%
+        );
+        top: 60%;
+        right: 15%;
+        animation-delay: -5s;
+      }
+
+      .gradient-orb-3 {
+        width: 300px;
+        height: 300px;
+        background: radial-gradient(
+          circle,
+          rgba(249, 111, 93, 0.8) 0%,
+          rgba(255, 228, 181, 0.6) 100%
+        );
+        bottom: 20%;
+        left: 20%;
+        animation-delay: -10s;
+      }
+
+      .gradient-orb-4 {
+        width: 280px;
+        height: 280px;
+        background: radial-gradient(
+          circle,
+          rgba(255, 184, 173, 0.8) 0%,
+          rgba(255, 228, 181, 0.6) 100%
+        );
+        top: 30%;
+        right: 30%;
+        animation-delay: -15s;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translate(0, 0) scale(1);
+        }
+        25% {
+          transform: translate(30px, -30px) scale(1.1);
+        }
+        50% {
+          transform: translate(-20px, 20px) scale(0.9);
+        }
+        75% {
+          transform: translate(20px, 30px) scale(1.05);
+        }
+      }
+
+      /* Header/Navigation */
+      .header {
+        max-width: 1200px;
+        margin: 0 auto 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 20px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .header h1 {
+        color: #43281c;
+        font-size: 2rem;
+      }
+
+      .nav-link {
+        color: #43281c;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.2s ease;
+        padding: 8px 16px;
+        border-radius: 5px;
+        background-color: #fbf2c0;
+        box-shadow: 4px 4px 0 0 #f96f5d;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .nav-link:hover {
+        color: #f96f5d;
+        transform: translate(-2px, -2px);
+        box-shadow: 6px 6px 0 0 #f96f5d;
+      }
+
+      /* Main container */
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 1;
+      }
+
+      /* Studio grid - Masonry style */
+      .studio-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        grid-auto-rows: 10px;
+        gap: 30px;
+        margin-top: 20px;
+      }
+
+      /* Studio item */
+      .studio-item {
+        background-color: #43281c;
+        border-radius: 5px;
+        overflow: hidden;
+        box-shadow: 10px 10px 0 0 #f96f5d;
+        transition: transform 0.3s ease, box-shadow 0.3s ease, scale 0.3s ease;
+        cursor: pointer;
+        opacity: 0;
+        transform: scale(0.9) translateY(20px);
+        grid-row-end: span var(--row-span, 1);
+      }
+
+      .studio-item.visible {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+        animation: fadeInScale 0.6s ease forwards;
+      }
+
+      @keyframes fadeInScale {
+        from {
+          opacity: 0;
+          transform: scale(0.9) translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1) translateY(0);
+        }
+      }
+
+      .studio-item:hover {
+        transform: translate(-2px, -2px) scale(1.02);
+        box-shadow: 12px 12px 0 0 #f96f5d;
+        z-index: 10;
+        position: relative;
+      }
+
+      .studio-item-image-wrapper {
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+        background-color: #43281c;
+      }
+
+      .studio-item-image-wrapper::before {
+        content: "";
+        display: block;
+        padding-bottom: 100%; /* Creates square aspect ratio */
+      }
+
+      @supports (aspect-ratio: 1 / 1) {
+        .studio-item-image-wrapper::before {
+          display: none;
+        }
+        .studio-item-image-wrapper {
+          aspect-ratio: 1 / 1;
+        }
+      }
+
+      .studio-item img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: block;
+        transition: transform 0.3s ease;
+        object-fit: cover;
+        object-position: center;
+      }
+
+      .studio-item img.loading {
+        opacity: 0.3;
+        background: linear-gradient(
+          90deg,
+          #43281c 25%,
+          #5a3a2a 50%,
+          #43281c 75%
+        );
+        background-size: 200% 100%;
+        animation: loading-shimmer 1.5s infinite;
+      }
+
+      @keyframes loading-shimmer {
+        0% {
+          background-position: 200% 0;
+        }
+        100% {
+          background-position: -200% 0;
+        }
+      }
+
+      .studio-item img.loaded {
+        opacity: 1;
+        transition: opacity 0.3s ease;
+      }
+
+      .studio-item:hover img {
+        transform: scale(1.02);
+      }
+
+      .studio-item-info {
+        padding: 15px;
+        color: #fbf2c0;
+      }
+
+      .studio-item-title {
+        color: #ffb8ad;
+        font-weight: 500;
+        margin-bottom: 5px;
+      }
+
+      .studio-item-date {
+        color: #f96f5d;
+        font-size: 0.85rem;
+        font-style: italic;
+      }
+
+      /* Lightbox modal */
+      .lightbox {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          135deg,
+          rgba(67, 40, 28, 0.95) 0%,
+          rgba(255, 184, 173, 0.1) 25%,
+          rgba(249, 111, 93, 0.1) 50%,
+          rgba(255, 228, 181, 0.1) 75%,
+          rgba(67, 40, 28, 0.95) 100%
+        );
+        background-size: 400% 400%;
+        animation: gradient-shift 10s ease infinite;
+        z-index: 2000;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .lightbox.active {
+        display: flex;
+        opacity: 1;
+      }
+
+      .lightbox-content {
+        max-width: 90%;
+        max-height: 90%;
+        position: relative;
+        transform: scale(0.8);
+        transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+
+      .lightbox.active .lightbox-content {
+        transform: scale(1);
+      }
+
+      @keyframes gradient-shift {
+        0%,
+        100% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+      }
+
+      .lightbox-content img {
+        max-width: 100%;
+        max-height: 90vh;
+        border-radius: 5px;
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+      }
+
+      .lightbox-close {
+        position: absolute;
+        top: -40px;
+        right: 0;
+        color: #fbf2c0;
+        font-size: 2rem;
+        cursor: pointer;
+        background: none;
+        border: none;
+        padding: 0;
+        width: 40px;
+        height: 40px;
+        transition: color 0.2s ease;
+      }
+
+      .lightbox-close:hover {
+        color: #f96f5d;
+      }
+
+      .lightbox-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: #43281c;
+        color: #fbf2c0;
+        border: 2px solid #f96f5d;
+        border-radius: 5px;
+        padding: 10px 15px;
+        cursor: pointer;
+        font-size: 1.5rem;
+        transition: background-color 0.2s ease, color 0.2s ease;
+      }
+
+      .lightbox-nav:hover {
+        background-color: #f96f5d;
+        color: #43281c;
+      }
+
+      .lightbox-prev {
+        left: -60px;
+      }
+
+      .lightbox-next {
+        right: -60px;
+      }
+
+      /* Empty state */
+      .empty-state {
+        text-align: center;
+        padding: 60px 20px;
+        color: #43281c;
+      }
+
+      .empty-state h2 {
+        color: #43281c;
+        margin-bottom: 15px;
+      }
+
+      /* Mobile responsive styles */
+      @media (max-width: 768px) {
+        .header h1 {
+          font-size: 1.5rem;
+        }
+
+        .studio-grid {
+          grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+          gap: 20px;
+        }
+
+        .lightbox-nav {
+          display: none;
+        }
+
+        .lightbox-close {
+          top: 10px;
+          right: 10px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .studio-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Floating gradient orbs -->
+    <div class="gradient-orb gradient-orb-1"></div>
+    <div class="gradient-orb gradient-orb-2"></div>
+    <div class="gradient-orb gradient-orb-3"></div>
+    <div class="gradient-orb gradient-orb-4"></div>
+
+    <div class="header">
+      <h1>studio</h1>
+      <a href="/index.html" class="nav-link">← Back to Home</a>
+    </div>
+
+    <div class="container">
+      <div class="studio-grid" id="studioGrid">
+        <!-- Studio items will be dynamically inserted here -->
+        <!-- Example structure:
+        <div class="studio-item" data-index="0">
+          <img src="/studio/image1.jpg" alt="Artwork 1" />
+          <div class="studio-item-info">
+            <div class="studio-item-title">Artwork Title</div>
+            <div class="studio-item-date">2024</div>
+          </div>
+        </div>
+        -->
+      </div>
+
+      <div class="empty-state" id="emptyState" style="display: none">
+        <h2>Studio Coming Soon</h2>
+        <p>Check back soon for artwork!</p>
+      </div>
+    </div>
+
+    <!-- Lightbox modal -->
+    <div class="lightbox" id="lightbox">
+      <button class="lightbox-close" id="lightboxClose">&times;</button>
+      <button class="lightbox-nav lightbox-prev" id="lightboxPrev">‹</button>
+      <div class="lightbox-content">
+        <img id="lightboxImage" src="" alt="" />
+      </div>
+      <button class="lightbox-nav lightbox-next" id="lightboxNext">›</button>
+    </div>
+
+    <script>
+      // Studio data is loaded from studio-data.js
+
+      // Image Cache Manager using IndexedDB
+      class ImageCache {
+        constructor() {
+          this.dbName = "studioImageCache";
+          this.dbVersion = 1;
+          this.storeName = "images";
+          this.db = null;
+        }
+
+        async init() {
+          return new Promise((resolve, reject) => {
+            const request = indexedDB.open(this.dbName, this.dbVersion);
+
+            request.onerror = () => reject(request.error);
+            request.onsuccess = () => {
+              this.db = request.result;
+              resolve();
+            };
+
+            request.onupgradeneeded = (event) => {
+              const db = event.target.result;
+              if (!db.objectStoreNames.contains(this.storeName)) {
+                db.createObjectStore(this.storeName);
+              }
+            };
+          });
+        }
+
+        async getImage(url) {
+          if (!this.db) await this.init();
+
+          return new Promise((resolve, reject) => {
+            const transaction = this.db.transaction(
+              [this.storeName],
+              "readonly"
+            );
+            const store = transaction.objectStore(this.storeName);
+            const request = store.get(url);
+
+            request.onsuccess = () => {
+              if (request.result) {
+                // Check if cached image is still valid (7 days)
+                const cached = request.result;
+                const age = Date.now() - cached.timestamp;
+                const maxAge = 7 * 24 * 60 * 60 * 1000; // 7 days
+
+                if (age < maxAge) {
+                  resolve(cached.blob);
+                } else {
+                  // Cache expired, delete it
+                  this.deleteImage(url);
+                  resolve(null);
+                }
+              } else {
+                resolve(null);
+              }
+            };
+
+            request.onerror = () => reject(request.error);
+          });
+        }
+
+        async setImage(url, blob) {
+          if (!this.db) await this.init();
+
+          return new Promise((resolve, reject) => {
+            const transaction = this.db.transaction(
+              [this.storeName],
+              "readwrite"
+            );
+            const store = transaction.objectStore(this.storeName);
+            const request = store.put(
+              { blob: blob, timestamp: Date.now() },
+              url
+            );
+
+            request.onsuccess = () => resolve();
+            request.onerror = () => reject(request.error);
+          });
+        }
+
+        async deleteImage(url) {
+          if (!this.db) await this.init();
+
+          return new Promise((resolve, reject) => {
+            const transaction = this.db.transaction(
+              [this.storeName],
+              "readwrite"
+            );
+            const store = transaction.objectStore(this.storeName);
+            const request = store.delete(url);
+
+            request.onsuccess = () => resolve();
+            request.onerror = () => reject(request.error);
+          });
+        }
+      }
+
+      const imageCache = new ImageCache();
+
+      // Transparent 1x1 pixel placeholder to prevent broken image icon
+      const PLACEHOLDER_IMAGE =
+        "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1' height='1'%3E%3C/svg%3E";
+
+      // Load image with caching
+      async function loadImageWithCache(img, src) {
+        // Set placeholder immediately to prevent broken image icon
+        img.src = PLACEHOLDER_IMAGE;
+        img.classList.add("loading");
+
+        try {
+          // Try to get from cache first
+          const cachedBlob = await imageCache.getImage(src);
+
+          if (cachedBlob) {
+            // Use cached image
+            const url = URL.createObjectURL(cachedBlob);
+            img.src = url;
+            img.onload = () => {
+              img.classList.remove("loading");
+              img.classList.add("loaded");
+            };
+            img.onerror = () => {
+              // If cached image fails, try direct src
+              img.src = src;
+            };
+            return;
+          }
+
+          // Not in cache, fetch and cache it
+          const response = await fetch(src);
+          if (!response.ok) throw new Error("Failed to fetch image");
+
+          const blob = await response.blob();
+
+          // Cache the image
+          await imageCache.setImage(src, blob);
+
+          // Display the image
+          const url = URL.createObjectURL(blob);
+          img.src = url;
+          img.onload = () => {
+            img.classList.remove("loading");
+            img.classList.add("loaded");
+          };
+          img.onerror = () => {
+            // If blob URL fails, try direct src
+            img.src = src;
+          };
+        } catch (error) {
+          console.error("Error loading image:", error);
+          img.src = src; // Fallback to direct src
+          img.onload = () => {
+            img.classList.remove("loading");
+            img.classList.add("loaded");
+          };
+        }
+      }
+
+      // Render studio
+      function renderStudio() {
+        const grid = document.getElementById("studioGrid");
+        const emptyState = document.getElementById("emptyState");
+
+        if (studioData.length === 0) {
+          grid.style.display = "none";
+          emptyState.style.display = "block";
+          return;
+        }
+
+        emptyState.style.display = "none";
+        grid.innerHTML = "";
+
+        studioData.forEach((item, index) => {
+          const studioItem = document.createElement("div");
+          studioItem.className = "studio-item";
+          studioItem.setAttribute("data-index", index);
+
+          const imageWrapper = document.createElement("div");
+          imageWrapper.className = "studio-item-image-wrapper";
+
+          const img = document.createElement("img");
+          img.alt = item.title;
+          img.loading = "lazy";
+          img.classList.add("loading");
+
+          // Load image with caching
+          loadImageWithCache(img, item.src);
+
+          imageWrapper.appendChild(img);
+
+          const info = document.createElement("div");
+          info.className = "studio-item-info";
+          info.innerHTML = `
+            <div class="studio-item-title">${item.title}</div>
+            <div class="studio-item-date">${item.date}</div>
+          `;
+
+          studioItem.appendChild(imageWrapper);
+          studioItem.appendChild(info);
+          studioItem.addEventListener("click", () => openLightbox(index));
+          grid.appendChild(studioItem);
+
+          // Calculate row span for masonry layout based on image aspect ratio
+          img.onload = function () {
+            const aspectRatio = img.naturalHeight / img.naturalWidth;
+            const baseRowHeight = 10;
+            const gap = 30;
+            const itemHeight = 280 * aspectRatio + 60; // 280px width + info height
+            const rowSpan = Math.ceil(
+              (itemHeight + gap) / (baseRowHeight + gap)
+            );
+            studioItem.style.setProperty("--row-span", rowSpan);
+            studioItem.style.gridRowEnd = `span ${rowSpan}`;
+          };
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+          threshold: 0.1,
+          rootMargin: "0px 0px -50px 0px",
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+              observer.unobserve(entry.target);
+            }
+          });
+        }, observerOptions);
+
+        // Observe all studio items
+        const items = grid.querySelectorAll(".studio-item");
+        items.forEach((item) => {
+          observer.observe(item);
+        });
+      }
+
+      // Lightbox functionality
+      let currentIndex = 0;
+
+      async function openLightbox(index) {
+        currentIndex = index;
+        const lightbox = document.getElementById("lightbox");
+        const lightboxImage = document.getElementById("lightboxImage");
+        const lightboxContent = document.querySelector(".lightbox-content");
+        const item = studioData[index];
+
+        lightboxImage.alt = item.title;
+        lightboxImage.src = PLACEHOLDER_IMAGE; // Set placeholder to prevent broken icon
+        lightboxImage.classList.add("loading");
+
+        // Reset transform for zoom animation
+        if (lightboxContent) {
+          lightboxContent.style.transform = "scale(0.8)";
+        }
+
+        lightbox.classList.add("active");
+        document.body.style.overflow = "hidden";
+
+        // Trigger zoom animation
+        requestAnimationFrame(() => {
+          if (lightboxContent) {
+            lightboxContent.style.transform = "scale(1)";
+          }
+        });
+
+        // Load full-size image with caching
+        await loadImageWithCache(lightboxImage, item.src);
+      }
+
+      function closeLightbox() {
+        const lightbox = document.getElementById("lightbox");
+        lightbox.classList.remove("active");
+        document.body.style.overflow = "";
+      }
+
+      async function navigateLightbox(direction) {
+        if (direction === "next") {
+          currentIndex = (currentIndex + 1) % studioData.length;
+        } else {
+          currentIndex =
+            (currentIndex - 1 + studioData.length) % studioData.length;
+        }
+        const item = studioData[currentIndex];
+        const lightboxImage = document.getElementById("lightboxImage");
+        lightboxImage.alt = item.title;
+        await loadImageWithCache(lightboxImage, item.src);
+      }
+
+      // Event listeners
+      document
+        .getElementById("lightboxClose")
+        .addEventListener("click", closeLightbox);
+      document
+        .getElementById("lightboxPrev")
+        .addEventListener("click", () => navigateLightbox("prev"));
+      document
+        .getElementById("lightboxNext")
+        .addEventListener("click", () => navigateLightbox("next"));
+
+      // Close lightbox on background click
+      document.getElementById("lightbox").addEventListener("click", (e) => {
+        if (e.target.id === "lightbox") {
+          closeLightbox();
+        }
+      });
+
+      // Keyboard navigation
+      document.addEventListener("keydown", (e) => {
+        const lightbox = document.getElementById("lightbox");
+        if (!lightbox.classList.contains("active")) return;
+
+        if (e.key === "Escape") {
+          closeLightbox();
+        } else if (e.key === "ArrowLeft") {
+          navigateLightbox("prev");
+        } else if (e.key === "ArrowRight") {
+          navigateLightbox("next");
+        }
+      });
+
+      // Initialize studio
+      renderStudio();
+
+      // Register service worker for caching
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker
+            .register("/sw.js")
+            .then((registration) => {
+              console.log("Service Worker registered:", registration);
+            })
+            .catch((error) => {
+              console.log("Service Worker registration failed:", error);
+            });
+        });
+      }
+    </script>
+  </body>
+</html>
