@@ -15,6 +15,16 @@ self.addEventListener("install", (event) => {
 
 // Activate event - clean up old caches
 self.addEventListener("activate", (event) => {
+  // Don't claim clients on localhost (dev server)
+  const isLocalhost = self.location.hostname === 'localhost' || 
+                      self.location.hostname === '127.0.0.1';
+  
+  if (isLocalhost) {
+    // On localhost, unregister this service worker immediately
+    self.registration.unregister();
+    return;
+  }
+  
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
@@ -32,6 +42,31 @@ self.addEventListener("activate", (event) => {
 // Fetch event - serve from cache, fallback to network
 self.addEventListener("fetch", (event) => {
   const url = new URL(event.request.url);
+
+  // Skip service worker requests
+  if (url.pathname === "/sw.js") {
+    return;
+  }
+
+  // Skip Vite dev server requests - these need to go directly to the dev server
+  // Vite handles module resolution and HMR for these paths
+  // Also skip localhost (dev server) completely
+  if (
+    url.hostname === "localhost" ||
+    url.hostname === "127.0.0.1" ||
+    url.pathname.startsWith("/src/") ||
+    url.pathname.startsWith("/@vite/") ||
+    url.pathname.startsWith("/@id/") ||
+    url.pathname.startsWith("/node_modules/") ||
+    url.pathname.startsWith("/assets/") ||
+    url.pathname === "/vite.svg" ||
+    url.pathname.includes(".js") ||
+    url.pathname.includes(".mjs")
+  ) {
+    // Let these requests pass through to the network without interception
+    // Don't call event.respondWith() - let the browser handle it natively
+    return;
+  }
 
   // Handle image requests
   if (
@@ -88,13 +123,21 @@ self.addEventListener("fetch", (event) => {
       })
     );
   } else {
-    // Handle other requests (HTML, JS, etc.)
+    // Handle other requests (HTML, JS, etc.) - but only for static pages
+    // Don't cache dynamic Vite-generated content
     event.respondWith(
       caches.match(event.request).then((cachedResponse) => {
         return (
           cachedResponse ||
           fetch(event.request).then((response) => {
-            if (response.ok && event.request.method === "GET") {
+            // Only cache HTML pages and static assets, not module scripts
+            if (
+              response.ok &&
+              event.request.method === "GET" &&
+              !url.pathname.startsWith("/src/") &&
+              !url.pathname.startsWith("/@") &&
+              !url.pathname.startsWith("/assets/")
+            ) {
               const responseToCache = response.clone();
               caches.open(CACHE_NAME).then((cache) => {
                 cache.put(event.request, responseToCache);
