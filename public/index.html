@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -34,6 +34,14 @@
     <!-- Favicon - update this link to your own -->
     <link rel="icon" type="image/x-icon" href="/donut-favi.png" />
 
+    <!-- Google Fonts - Baloo 2 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
     <style>
       * {
         margin: 0;
@@ -53,8 +61,9 @@
         background-size: 400% 400%;
         animation: gradient-shift 15s ease infinite;
         color: #fbf2c0;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-          Oxygen, Ubuntu, Cantarell, sans-serif;
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
+          Cantarell, sans-serif;
         min-height: 100vh;
         display: flex;
         justify-content: center;
@@ -179,7 +188,9 @@
         border-radius: 5px;
         padding: 30px;
         box-shadow: 10px 10px 0 0 #f96f5d;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease;
       }
 
       .card:hover {
@@ -215,6 +226,7 @@
         color: #ffb8ad;
         margin-bottom: 20px;
         font-size: 1.8rem;
+        font-family: "Baloo 2", sans-serif;
       }
 
       p {
@@ -300,7 +312,11 @@
         text-decoration: none;
         margin: 0 10px;
         transition: color 0.2s ease;
-        font-size: 0.95rem;
+        font-size: 1.6rem;
+        font-family: "Baloo 2", sans-serif;
+        text-transform: uppercase;
+        font-weight: bold;
+        letter-spacing: -0.5px;
       }
 
       .contact-links a:hover {
@@ -316,6 +332,7 @@
         color: #ffb8ad;
         margin-bottom: 20px;
         font-size: 1.3rem;
+        font-family: "Baloo 2", sans-serif;
       }
 
       .studio-link {
@@ -347,7 +364,9 @@
         overflow: hidden;
         cursor: pointer;
         border: 2px solid #f96f5d;
-        transition: transform 0.2s ease, border-color 0.2s ease;
+        transition:
+          transform 0.2s ease,
+          border-color 0.2s ease;
       }
 
       .recent-image-item:hover {
@@ -468,7 +487,6 @@
       function displayRecentImages() {
         const recentImagesContainer = document.getElementById("recentImages");
         if (!recentImagesContainer) {
-          console.error("Element with id 'recentImages' not found");
           return;
         }
         const recentImages = studioData.slice(0, 4);
@@ -499,7 +517,7 @@
 
       // Typewriter effect
       function typeWriter() {
-        const text = "Sara";
+        const text = "sara";
         const element = document.getElementById("typewriter-text");
         if (!element) {
           // Retry if element doesn't exist yet
@@ -532,12 +550,12 @@
     <div class="container">
       <div class="card who-am-i">
         <img alt="profile picture" class="face" src="/avatar.jpeg" />
-        <h1>Sara Chadwick</h1>
+        <h1>sara chadwick</h1>
         <p>
-          Hi I'm <span id="typewriter-text"></span
+          hi I'm <span id="typewriter-text"></span
           ><span class="cursor">|</span>!
         </p>
-        <p>This is my website and here is some stuff</p>
+        <p>this is my website and here is some stuff</p>
 
         <div class="contact-links">
           <a
@@ -562,7 +580,7 @@
           <h1>The Stuff</h1>
           <ul class="the-stuff">
             <li>
-              <a href="/chicagosugarhigh">Chicago Sugar High</a> - a blog about
+              <a href="/chicagosugarhigh">Chicago Sugar high</a> - a blog about
               trying baked goods
               <div class="project-desc">
                 <span class="tech-stack">(WordPress, Custom Theme)</span>

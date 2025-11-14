@@ -2,7 +2,7 @@
 """
 Image Optimization Script for Studio Images
 
-This script optimizes PNG images by:
+this script optimizes PNG images by:
 1. Converting to WebP format (smaller file size, same quality)
 2. Creating optimized PNG versions
 3. Optionally creating thumbnail versions

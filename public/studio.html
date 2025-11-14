@@ -18,6 +18,11 @@
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/donut-favi.png" />
 
+    <!-- Google Fonts - Baloo 2 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
     <!-- Studio data -->
     <script src="/studio-data.js"></script>
 
@@ -156,6 +161,7 @@
       .header h1 {
         color: #43281c;
         font-size: 2rem;
+        font-family: "Baloo 2", sans-serif;
       }
 
       .nav-link {
@@ -427,6 +433,7 @@
       .empty-state h2 {
         color: #43281c;
         margin-bottom: 15px;
+        font-family: "Baloo 2", sans-serif;
       }
 
       /* Mobile responsive styles */
@@ -657,7 +664,6 @@
             img.src = src;
           };
         } catch (error) {
-          console.error("Error loading image:", error);
           img.src = src; // Fallback to direct src
           img.onload = () => {
             img.classList.remove("loading");
@@ -839,10 +845,10 @@
           navigator.serviceWorker
             .register("/sw.js")
             .then((registration) => {
-              console.log("Service Worker registered:", registration);
+              // Service Worker registered
             })
             .catch((error) => {
-              console.log("Service Worker registration failed:", error);
+              // Service Worker registration failed
             });
         });
       }

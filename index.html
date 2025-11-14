@@ -4,77 +4,56 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <title>sara-chadwick</title>
     <script>
-      // Diagnostic: Log what's happening
-      console.log('Page loading at:', window.location.href);
-      console.log('Service Worker controller:', navigator.serviceWorker?.controller);
-      console.log('User Agent:', navigator.userAgent);
-      
       // Test if we can fetch the main.js file directly
       fetch('/src/main.js', { cache: 'no-store' })
         .then(response => {
-          console.log('Direct fetch of /src/main.js:', {
-            status: response.status,
-            contentType: response.headers.get('content-type'),
-            url: response.url
-          });
           return response.text();
         })
         .then(text => {
-          console.log('First 100 chars of response:', text.substring(0, 100));
           if (text.trim().startsWith('<!')) {
-            console.error('ERROR: Got HTML instead of JavaScript!');
-            console.error('Full response:', text);
+            // Got HTML instead of JavaScript
           }
         })
         .catch(err => {
-          console.error('Error fetching /src/main.js:', err);
+          // Error fetching /src/main.js
         });
       
       // Test if we can fetch the Vite client
       fetch('/@vite/client', { cache: 'no-store' })
         .then(response => {
-          console.log('Direct fetch of /@vite/client:', {
-            status: response.status,
-            contentType: response.headers.get('content-type'),
-            url: response.url
-          });
           return response.text();
         })
         .then(text => {
-          console.log('First 100 chars of Vite client:', text.substring(0, 100));
           if (text.trim().startsWith('<!')) {
-            console.error('ERROR: Got HTML instead of JavaScript for Vite client!');
-            console.error('Full response:', text.substring(0, 500));
+            // Got HTML instead of JavaScript for Vite client
           }
         })
         .catch(err => {
-          console.error('Error fetching /@vite/client:', err);
+          // Error fetching /@vite/client
         });
       
       // Immediately unregister service worker during development (localhost)
-      // This must run BEFORE any module scripts to prevent interception
+      // this must run BEFORE any module scripts to prevent interception
       (function() {
         if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
           if ('serviceWorker' in navigator) {
             // Unregister all service workers immediately
             navigator.serviceWorker.getRegistrations().then(function(registrations) {
-              console.log('Service worker registrations:', registrations.length);
               if (registrations.length > 0) {
                 registrations.forEach(function(registration) {
-                  console.log('Unregistering service worker:', registration.scope);
                   registration.unregister().then(function(success) {
-                    if (success) {
-                      console.log('Service worker unregistered for development');
-                    }
+                    // Service worker unregistered for development
                   });
                 });
                 
                 // Clear all caches
                 if ('caches' in window) {
                   caches.keys().then(function(names) {
-                    console.log('Clearing caches:', names);
                     names.forEach(function(name) {
                       caches.delete(name);
                     });
@@ -84,7 +63,6 @@
                 // If service worker is controlling the page, reload once
                 if (navigator.serviceWorker.controller && !sessionStorage.getItem('sw-reload-done')) {
                   sessionStorage.setItem('sw-reload-done', 'true');
-                  console.log('Service worker was controlling, reloading...');
                   window.location.reload();
                   return;
                 }
